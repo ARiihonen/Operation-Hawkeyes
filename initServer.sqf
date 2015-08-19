@@ -48,6 +48,19 @@ _veh = targetCarOne;
 	]
 ] call BIS_fnc_initVehicle,
 
+_veh = targetCarTwo;
+[
+	_veh,
+	["guerilla_01",1],
+	[
+		"HideBackpacks", 0,
+		"HideBumper1", 0,
+		"HideConstruction", 0,
+		"Proxy", 0,
+		"Destruct", 0
+	]
+] call BIS_fnc_initVehicle;
+
 //Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
 if (playersNumber west > 9) then {
 	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", ""], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;

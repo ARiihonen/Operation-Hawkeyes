@@ -91,6 +91,7 @@ _ambushWaypoints = [];
 	_cutoffWp = format ["%1_ambush_cutoff", _town];
 	_wp = _x addWaypoint [markerPos _cutoffWp, 0];
 	_wp setWaypointType "MOVE";
+	_wp setWaypointSpeed "LIMITED";
 	_wp setWaypointStatements ["true", "(group this) setVariable ['MGP_missionStarted', true, false];"];
 
 	_dismountWp = format ["%1_ambush_dismount_%2", _town, _forEachIndex];
@@ -119,17 +120,16 @@ _ambushWaypoints = [];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointSpeed "NORMAL";
 	_wp setWaypointBehaviour "COMBAT";
-	_wp setWaypointCombatMode "RED";
+	_wp setWaypointCombatMode "YELLOW";
 
 	_wp = _x addWaypoint [markerPos _dismountWp, 0];
 	_wp setWaypointType "GETIN";
 	_wp setWaypointSpeed "FULL";
 	_wp setWaypointBehaviour "AWARE";
-	_wp setWaypointCombatMode "YELLOW";
 
 	_wp = _x addWaypoint [markerPos _cutoffWp, 0];
 	_wp setWaypointType "MOVE";
-	_wp setWaypointSpeed "NORMAL";
+	_wp setWaypointSpeed "LIMITED";
 	_wp setWaypointStatements ["true", format ["status%1 = 'neutral';", _town]];
 
 	_wp = _x addWaypoint [markerPos _vehicles, 0];

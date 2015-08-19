@@ -96,17 +96,20 @@ if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targ
 	_dismountMarker = if (_town == "B") then { "b_help_dismount"; } else { format ["a_help_dismount%1", _number]; };
 	_wp = _x addWaypoint [markerPos _dismountMarker, 0];
 	_wp setWaypointType "GETOUT";
+	_wp setWaypointSpeed "LIMITED";
 	
 	_defenseMarker = if (_town == "B") then { "b_help_sad"; } else { format ["a_help_sad%1", _number]; };
 	_wp = _x addWaypoint [markerPos _defenseMarker, 0];
 	_wp setWaypointType "SAD";
 	_wp setWaypointBehaviour "AWARE";
+	_wp setWaypointSpeed "NORMAL";
 	
 	_wp = _x addWaypoint [markerPos _dismountMarker, 0];
 	_wp setWaypointType "GETIN";
 	
 	_wp = _x addWaypoint [markerPos _carMarker, 0];
 	_wp setWaypointType "GETOUT";
+	_wp setWaypointSpeed "LIMITED";
 	_wp setWaypointStatements ["true", "(group this) setVariable ['MGP_helpReady', true, false];"];
 } forEach _groups;
 
