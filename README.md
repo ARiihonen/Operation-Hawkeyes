@@ -1,17 +1,2 @@
-# Operation-Hawkeyes version 0.01
+# Operation-Hawkeyes version 0.02
 Arma 3 coop, 4-14 players
-
-TODO:
-- Task tracking
-- Ending tracking
-- Alert triggers
-- Panic triggers
-- BLUFOR Convoy
-- Militia vehicle visuals
-- Pictures
-- Briefing
-  - Situation
-  - Mission
-  - Execution
-  - Intel
-  - Signal
