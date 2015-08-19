@@ -8,6 +8,7 @@ TODO:
 - Panic triggers
 - BLUFOR Convoy
 - Militia vehicle visuals
+- Pictures
 - Briefing
   - Situation
   - Mission
