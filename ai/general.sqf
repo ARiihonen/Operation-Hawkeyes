@@ -54,11 +54,15 @@ for "_i" from 1 to groupCountB do {
 	(_x select 0) addItem "itemRadio";
 } forEach (arrayA + arrayB);
 
+//add radios to the badass dudes
+{
+	_x addItem "itemRadio";
+} forEach (protectionGroup + [tango]);
+
 /*
 //ambush randomisation
-if (random 1 > 0.75) then {
-	_village = ["A", "B"] call BIS_fnc_selectRandom;
-	_village execVM "ai\ambush.sqf";
+if (ambushTown != "C") then {
+	[ambushTown, "ambush"] execVM "ai\mission.sqf";
 };
 */
 

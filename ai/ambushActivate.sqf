@@ -6,6 +6,6 @@ _marker3 = format ["%1_ambush_boom3", _town];
 _marker4 = format ["%1_ambush_boom4", _town];
 
 {
-	_bomb = "Bo_Mk82" createVehicle (markerPos _x);
+	_bomb = "R_80mm_HE" createVehicle (markerPos _x);
 	sleep 1;
 } forEach [_marker1, _marker2, _marker3, _marker4];

@@ -20,6 +20,32 @@ if (_class != "O_OFFICER_F") then {
 	_squadWeapons = "";
 
 	switch _side do {
+		case west: {
+			comment "Add containers";
+			_this forceAddUniform "MNP_CombatUniform_NOR_A";
+			_this addItemToUniform "ACE_tourniquet";
+			for "_i" from 1 to 4 do {_this addItemToUniform "ACE_packingBandage";};
+			for "_i" from 1 to 4 do {_this addItemToUniform "ACE_morphine";};
+			for "_i" from 1 to 4 do {_this addItemToUniform "ACE_epinephrine";};
+			_this addItemToUniform "ACE_EarPlugs";
+			_this addVest "MNP_Vest_NOR_1";
+			for "_i" from 1 to 4 do {_this addItemToVest "hlc_20rnd_762x51_b_G3";};
+			_this addItemToVest "HandGrenade";
+			for "_i" from 1 to 2 do {_this addItemToVest "SmokeShell";};
+
+			comment "Add weapons";
+			_this addWeapon "hlc_rifle_g3ka4";
+
+			comment "Add items";
+			_this linkItem "ItemMap";
+			_this linkItem "ItemCompass";
+			_this linkItem "ItemWatch";
+			_this linkItem "tf_anprc152";
+
+			comment "Set identity";
+			_this setSpeaker (["Male01GRE","Male02GRE","Male03GRE","Male04GRE","mMale05GRE", "Male06GRE"] select (floor random 6));
+		};
+		
 		case civilian: {
 			_uniforms = ["U_BG_Guerilla2_2","U_BG_Guerilla2_1","U_BG_Guerilla2_3","U_BG_Guerilla3_1","U_C_HunterBody_grn","TRYK_U_B_C02_Tsirt","TRYK_U_B_PCUGs_BLK_R","TRYK_U_B_PCUGs_gry_R","TRYK_U_B_PCUGs_OD_R","TRYK_shirts_DENIM_BK","TRYK_shirts_DENIM_BL","TRYK_shirts_DENIM_BWH","TRYK_shirts_DENIM_od","TRYK_shirts_DENIM_R","TRYK_shirts_DENIM_RED2","TRYK_shirts_DENIM_WH","TRYK_shirts_DENIM_WHB","TRYK_shirts_DENIM_ylb","TRYK_U_denim_hood_nc","TRYK_U_B_BLK_T_BK","TRYK_U_B_RED_T_BR","TRYK_U_B_BLK_T_WH","TRYK_U_B_Denim_T_BK","TRYK_U_B_Denim_T_WH","U_C_WorkerCoveralls","U_C_Poor_1","U_Marshal","TRYK_SUITS_BLK_F","TRYK_SUITS_BR_F"];
 		};
@@ -36,18 +62,29 @@ if (_class != "O_OFFICER_F") then {
 				
 				_weapons = [["rhs_30Rnd_762x39mm","rhs_weap_akm",""],["rhs_30Rnd_762x39mm","rhs_weap_akms",""]];
 				
-				if (random 1 > 0.5) then {
-					if (_class == "O_SOLDIER_M_F") then {
-						_weapons = [["rhs_10Rnd_762x54mmR_7N1","rhs_weap_svd","rhs_acc_pso1m2"]];
+				if ((group _this in groupsA && ambushTown == "A") || (group _this in groupsB && ambushTown =="B")) then {
+					if (_class == "O_SOLDIER_M_F" || _class == "O_SOLDIER_LAT_F") then {
+						_squadWeapons = ["rhs_rpg7_PG7VL_mag","rhs_weap_rpg7","rhs_rpg_empty"];
 					};
 					
 					if (_class == "O_SOLDIER_AR_F") then {
 						_weapons = "";
 						_squadWeapons = ["rhs_100Rnd_762x54mmR","rhs_weap_pkm","rhs_sidor"];
 					};
-					
-					if (_class == "O_SOLDIER_LAT_F") then {
-						_squadWeapons = if (random 1 > 0.25) then { ["rhs_rpg7_PG7VL_mag","rhs_weap_rpg7","rhs_rpg_empty"]; } else { ["rhs_fim92_mag","rhs_weap_fim92","rhs_rpg_empty"]; };
+				} else {
+					if (random 1 > 0.5) then {
+						if (_class == "O_SOLDIER_M_F") then {
+							_weapons = [["rhs_10Rnd_762x54mmR_7N1","rhs_weap_svd","rhs_acc_pso1m2"]];
+						};
+						
+						if (_class == "O_SOLDIER_AR_F") then {
+							_weapons = "";
+							_squadWeapons = ["rhs_100Rnd_762x54mmR","rhs_weap_pkm","rhs_sidor"];
+						};
+						
+						if (_class == "O_SOLDIER_LAT_F") then {
+							_squadWeapons = if (random 1 > 0.25) then { ["rhs_rpg7_PG7VL_mag","rhs_weap_rpg7","rhs_rpg_empty"]; } else { ["rhs_fim92_mag","rhs_weap_fim92","rhs_rpg_empty"]; };
+						};
 					};
 				};
 			};

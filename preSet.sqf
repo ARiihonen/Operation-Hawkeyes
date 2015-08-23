@@ -20,8 +20,13 @@ if (isServer) then {
 	cacheA = floor random 4;
 	cacheB = floor random 4;
 	
-	ambushReadyA = false;
-	ambushReadyB = false;
+	ambushTown = "C";
+	/*
+	if (random 1 > 0.75) then {
+		_village = ["A", "B"] call BIS_fnc_selectRandom;
+		ambushTown = _village;
+	};
+	*/
 	
 	assault = [];
 	if (random 1 < 0.25) then {

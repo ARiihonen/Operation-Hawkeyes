@@ -1,2 +1,2 @@
-# Operation-Hawkeyes version 0.02
+# Operation-Hawkeyes
 Arma 3 coop, 4-14 players

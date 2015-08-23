@@ -17,44 +17,23 @@ _originalGroups = call compile format ["originalGroups%1", _town];
 
 //original protection group spots
 if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targetLocation == 1)) then {
+
+	_homeMarker = format ["%1_target_home_%2", _town, targetLocation];
+	
 	{
 		unassignVehicle _x;
 	} forEach (units groupedProtectionGroup);
 	_targetGroup = createGroup east;
-	[tango] joinSilent _targetGroup;
+	[tango, protectionManOne, protectionManTwo] joinSilent _targetGroup;
 	while {(count (waypoints _targetGroup)) > 0} do {
 		deleteWaypoint ((waypoints _targetGroup) select 0);
 	};
-	_wp = _targetGroup addWaypoint [originalProtectionGroup select 0, 0];
+	_wp = _targetGroup addWaypoint [markerPos _homeMarker, 0];
 	_wp setWaypointType "MOVE";
-	_wp setWaypointSpeed "NORMAL";
+	_wp setWaypointSpeed "LIMITED";
 	_wp setWaypointCombatMode "RED";
 	_wp setWaypointBehaviour "SAFE";
 	_targetGroup setCurrentWaypoint _wp;
-	
-	_dudeGroupOne = createGroup east;
-	[protectionManOne] joinSilent _dudeGroupOne;
-	while {(count (waypoints _dudeGroupOne)) > 0} do {
-		deleteWaypoint ((waypoints _dudeGroupOne) select 0);
-	};
-	_wp = _dudeGroupOne addWaypoint [originalProtectionGroup select 1, 0];
-	_wp setWaypointType "MOVE";
-	_wp setWaypointSpeed "NORMAL";
-	_wp setWaypointCombatMode "RED";
-	_wp setWaypointBehaviour "SAFE";
-	_dudeGroupOne setCurrentWaypoint _wp;
-	
-	_dudeGroupTwo = createGroup east;
-	[protectionManTwo] joinSilent _dudeGroupTwo;
-	while {(count (waypoints _dudeGroupTwo)) > 0} do {
-		deleteWaypoint ((waypoints _dudeGroupTwo) select 0);
-	};
-	_wp = _dudeGroupTwo addWaypoint [originalProtectionGroup select 2, 0];
-	_wp setWaypointType "MOVE";
-	_wp setWaypointSpeed "NORMAL";
-	_wp setWaypointCombatMode "RED";
-	_wp setWaypointBehaviour "SAFE";
-	_dudeGroupTwo setCurrentWaypoint _wp;
 	
 	_patrolGroupOne = createGroup east;
 	(originalProtectionGroup select 3 select 1) joinSilent _patrolGroupOne;

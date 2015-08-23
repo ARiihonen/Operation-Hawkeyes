@@ -21,6 +21,10 @@ _actionGroups = [];
 	_grp = createGroup east;
 	_x joinSilent _grp;
 	_actionGroups set [count _actionGroups, _grp];
+	
+	_vehOne = call compile format ["%1_veh_%2_1", _town, _forEachIndex];
+	_vehTwo = call compile format ["%1_veh_%2_2", _town, _forEachIndex];
+	_grp setVariable ["MGP_groupVehicles", [_vehOne, _vehTwo], false];
 } forEach _array;
 
 if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targetLocation == 1)) then {
@@ -38,6 +42,8 @@ if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targ
 	_grp = createGroup east;
 	(protectionGroup + [tango]) joinSilent _grp;
 	groupedProtectionGroup = _grp;
+	
+	groupedProtectionGroup setVariable ["MGP_groupVehicles", [targetCarOne, targetCarTwo], false];
 };
 
 call compile format ["grouped%1 = true;", _town];
