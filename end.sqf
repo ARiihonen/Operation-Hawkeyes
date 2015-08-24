@@ -1,24 +1,21 @@
-_ending = _this;
+_endState = _this select 0; 
+_endTextStatus = _this select 1; 
+_endTextTasks = _this select 2;
+_endTextCasualties = _this select 3; 
+_endTextPS = _this select 4;
 
-//Separate ending conditions:
-
-/*Different endings are set up in Description.ext in the cfgDebriefing class, 
-syntax for BIS_fnc_endMission is ["endingName", isVictory, fancyVisuals], 
-where endingName is the ending's class name, 
-isVictory a boolean value denoting if the ending was a victory or not, 
-and fancyVisuals a boolean that says whether to go straight to the 
-debriefing or to use the cool new ingame ending graphic*/
+titleText [_endTextStatus, "BLACK OUT", 4];
+titleText [_endTextTasks, "BLACK", 1];
+titleText [_endTextCasualties, "BLACK", 1];
+titleText [_endTextPS, "BLACK", 1];
 
 if (alive player) then {
-
-	switch _ending do {
-		case "win": { 
-			["Win", true, true] call BIS_fnc_endMission;
-		};
-		
-		default {
-			["Lose", false, true] call BIS_fnc_endMission;
-		};
+	
+	if (_endState == "partialwin" || _endState == "totalwin") then {
+		[_endState, true, true] call BIS_fnc_endMission;
+	} else {
+		[_endState, false, true] call BIS_fnc_endMission;
+	};
 
 } else {
 	["Dead", false, true] call BIS_fnc_endMission;

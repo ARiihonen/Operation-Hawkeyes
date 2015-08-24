@@ -46,6 +46,8 @@ class Mission
 	randomSeed=90196;
 	class Intel
 	{
+		briefingName="Operation HIFK";
+		overviewText="Finnish Special Jaegers eliminate a prominent militia leader.";
 		resistanceWest=0;
 		timeOfChanges=3600;
 		startWeather=0.14999999;
@@ -53,7 +55,7 @@ class Mission
 		forecastWeather=0.75;
 		forecastWind=0;
 		forecastWaves=0;
-		year=2018;
+		year=2013;
 		month=10;
 		day=8;
 		hour=5;
@@ -9400,12 +9402,13 @@ class Mission
 		class Item62
 		{
 			position[]={4703.1079,8.9050045,2579.6245};
-			azimut=498.59192;
+			azimut=498.59201;
 			special="NONE";
 			id=449;
 			side="EMPTY";
 			vehicle="MELB_MH6M";
 			skill=0.60000002;
+			text="heko";
 		};
 		class Item63
 		{
@@ -9675,7 +9678,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=66;
+		items=74;
 		class Item0
 		{
 			position[]={4650.5503,279.66687,6403.043};
@@ -10087,10 +10090,70 @@ class Mission
 			name="b_ambush_prep_3";
 			type="Empty";
 		};
+		class Item66
+		{
+			position[]={4497.8623,293.39755,6416.5669};
+			name="marker_pogorevka";
+			type="Empty";
+		};
+		class Item67
+		{
+			position[]={4756.666,267.82773,6763.8467};
+			name="marker_rogovo";
+			type="Empty";
+		};
+		class Item68
+		{
+			position[]={3063.4941,301.49319,7922.2109};
+			name="marker_pustoshka";
+			type="Empty";
+		};
+		class Item69
+		{
+			position[]={4661.2104,325.12952,8752.5039};
+			name="marker_msr";
+			type="Empty";
+		};
+		class Item70
+		{
+			position[]={3779.9304,316.88947,7128.1758};
+			name="marker_ao";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorRed";
+			fillName="DiagGrid";
+			a=2000;
+			b=1000;
+			angle=-142.923;
+		};
+		class Item71
+		{
+			position[]={1620.6842,210.82434,6599.7207};
+			name="marker_targetSpotted";
+			type="Empty";
+		};
+		class Item72
+		{
+			position[]={4684.814,9,2572.8782};
+			name="respawn_west";
+			type="mil_start";
+			colorName="ColorWEST";
+		};
+		class Item73
+		{
+			position[]={4748.9409,8.9955473,2533.2249};
+			name="marker_base";
+			markerType="ELLIPSE";
+			type="Empty";
+			colorName="ColorWEST";
+			fillName="DiagGrid";
+			a=200;
+			b=200;
+		};
 	};
 	class Sensors
 	{
-		items=20;
+		items=21;
 		class Item0
 		{
 			position[]={4748.7695,9,2534.5396};
@@ -10100,7 +10163,7 @@ class Mission
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
-			name="baseTrigger";
+			name="trigger_base";
 			class Effects
 			{
 			};
@@ -10414,6 +10477,20 @@ class Mission
 			name="b_trigger_blu_red_alert";
 			expCond="(statusB == ""neutral"" || statusB == ""help"") && this";
 			expActiv="if (isServer) then { [""B"", ""alert""] execVM ""ai\mission.sqf""; };";
+			class Effects
+			{
+			};
+		};
+		class Item20
+		{
+			position[]={3778.5034,315.91858,7172.4888};
+			a=2000;
+			b=2000;
+			activationBy="ANY";
+			repeating=1;
+			interruptable=1;
+			age="UNKNOWN";
+			name="trigger_escapeArea";
 			class Effects
 			{
 			};

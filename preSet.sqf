@@ -1,4 +1,4 @@
-/*
+ /*
 This script is defined as a pre-init function in description.ext, meaning it runs before objects initialise on the map.
 
 I use it to set up a randomisation system for the enemies and other randomised objects. Each object to be randomised has a condition of existence set up in the editor, which
@@ -7,12 +7,16 @@ potential locations. For an example, check out the mission files for No Time For
 */
 
 if (isServer) then {
+	forceEnding = false;
 
 	statusA = "neutral";
 	statusB = "neutral";
 	
 	groupedA = false;
 	groupedB = false;
+	
+	killConfirmed = false;
+	ambushActivated = false;
 	
 	targetLocation = floor random 2;
 	target = floor random 4;
@@ -21,12 +25,10 @@ if (isServer) then {
 	cacheB = floor random 4;
 	
 	ambushTown = "C";
-	/*
 	if (random 1 > 0.75) then {
 		_village = ["A", "B"] call BIS_fnc_selectRandom;
 		ambushTown = _village;
 	};
-	*/
 	
 	assault = [];
 	if (random 1 < 0.25) then {
@@ -34,7 +36,7 @@ if (isServer) then {
 			assault set [count assault, _i];
 		};
 		
-		assault = [assault, 2, 2] call compile preprocessFile "logic\randomise.sqf";
+		assault = [assault, 2, 3] call compile preprocessFile "logic\randomise.sqf";
 	};
 	
 	_minMilitiaA = if (targetLocation == 0) then { 6; } else { 18; };

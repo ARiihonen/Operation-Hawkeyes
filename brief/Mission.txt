@@ -1,1 +1,3 @@
-mission text
+Your mission is to disrupt the operation of a large pro-ChDKZ militia by capturing or killing their leader, Niklas Polzin, codename Jokeri.
+<br /> <br />
+%1

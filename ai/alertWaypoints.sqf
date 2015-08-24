@@ -96,8 +96,7 @@ for "_i" from 0 to 3 do {
 	_wp = _group addWaypoint [markerPos _defenseSpot, 0];
 	_wp setWaypointSpeed "NORMAL";
 	_wp setWaypointCombatMode "RED";
-	//_wp setWaypointTimeout [600, 600, 600];
-	_wp setWaypointTimeout [30, 30, 30];
+	_wp setWaypointTimeout [600, 600, 600];
 	_wp setWaypointName "Defend";
 	
 	{
@@ -117,15 +116,4 @@ for "_i" from 0 to 3 do {
 	_wp setWaypointBehaviour "COMBAT";
 	_wp setWaypointSpeed "NORMAL";
 	_wp setWaypointName "Defend";
-	
-	diag_log "";
-	diag_log format ["Assigned alert waypoints for %1", _group];
-	_waypointsAfterAssign = [];
-	{
-		_waypointsAfterAssign set [count _waypointsAfterAssign, waypointName _x];
-	} forEach (waypoints _group);
-	diag_log format ["Waypoints after assign: %1", _waypointsAfterAssign];
-	diag_log format ["Current waypoint: %1", waypointName [_group, currentWaypoint _group]];
-	diag_log "";
-	
 } forEach _groups;

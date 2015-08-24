@@ -116,16 +116,6 @@ _ambushWaypoints = [];
 	_wp = _x addWaypoint [markerPos _vehicles, 0];
 	_wp setWaypointType "DISMISSED";
 	_wp setWaypointName "Dismiss";
-	
-	diag_log "";
-	diag_log format ["Assigned ambush waypoints for %1", _x];
-	_waypointsAfterAssign = [];
-	{
-		_waypointsAfterAssign set [count _waypointsAfterAssign, waypointName _x];
-	} forEach (waypoints _x);
-	diag_log format ["Waypoints after assign: %1", _waypointsAfterAssign];
-	diag_log format ["Current waypoint: %1", waypointName [_x, currentWaypoint _x]];
-	diag_log "";
 } forEach _groups;
 call compile format ["ambushTrigger%1 synchronizeTrigger _ambushWaypoints;", _town];
 

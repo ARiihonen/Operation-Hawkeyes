@@ -7,8 +7,8 @@ author="Sniper Party";
 //overviewPicture = "LoadScreen.paa"; This does not work on dedicated servers. Arma is bad.
 
 //Loading screen texts and picture for loading the mission
-OnLoadName = "Mission name";
-OnLoadMission = "Loading screen text";
+OnLoadName = "Operation HIFK";
+OnLoadMission = "The operation was named after a finnish ice hockey team, the primary rival of Jokerit (The Jokers)";
 //loadscreen = "loadscreenpicture.paa";
 
 saving = 0; //Set saving to 0 so that you can exit the mission without saving and causing dumb bugs when reloading
@@ -26,7 +26,7 @@ enableDebugConsole = 1; //enable debug console for the admin
 //Game type stuff. Doesn't matter, but will get shown in mission select.
 class Header {
 	gameType = COOP;
-	minPlayers = 8;
+	minPlayers = 6;
 	maxPlayers = 14;
 };
 
@@ -40,29 +40,30 @@ class CfgDebriefing {
 		pictureColor[] = {0.6,0.1,0.2,1};
 	};
 	
-	class Win {
+	class totalwin {
 		title = "Mission complete";
 		subtitle = "All tasks completed";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
 		//picturecolor[] = {0.0,0.3,0.6,1};
 	};
 	
-	class PartialWin {
-		title = "Partial success";
-		subtitle = "Target down";
+	class partialwin {
+		title = "Mission complete";
+		subtitle = "Some tasks completed";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
+		//picturecolor[] = {0.0,0.3,0.6,1};
 	};
 	
-	class PartialLose {
-		title = "Mission over";
-		subtitle = "At least the caches are down";
+	class partialloss {
+		title = "Mission failed";
+		subtitle = "Primary objective failed";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconFailed_ca.paa";
 		pictureColor[] = {1.0,0.3,0.2,1.0};
 	};
 	
-	class Lose {
+	class totalloss {
 		title = "Mission failed";
-		subtitle = "Objectives incomplete";
+		subtitle = "All objectives failed";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconFailed_ca.paa";
 		pictureColor[] = {1.0,0.3,0.2,1.0};
 	};

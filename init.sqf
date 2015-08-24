@@ -9,7 +9,7 @@ asr_ai3_sysdanger_radiorange = 1000; //this tells the thingy to not send AI to h
 
 //Player init: this will only run on players. Use it to add the briefing and any player-specific stuff like action-menu items.
 if (!isServer || (isServer && !isDedicated) ) then {
-	
+	tango addAction ["<t color='#AADDAA'>Confirm kill</t>", "killConfirmed = true; publicVariableServer 'killConfirmed';", "", 6, false, true, "", "!alive _target"];
 	//put in briefings
 	brief = [] execVM "brief\briefing.sqf";
 };

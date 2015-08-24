@@ -59,12 +59,10 @@ for "_i" from 1 to groupCountB do {
 	_x addItem "itemRadio";
 } forEach (protectionGroup + [tango]);
 
-/*
 //ambush randomisation
 if (ambushTown != "C") then {
 	[ambushTown, "ambush"] execVM "ai\mission.sqf";
 };
-*/
 
 _civilianLoop = [] spawn {
 	while {true} do {

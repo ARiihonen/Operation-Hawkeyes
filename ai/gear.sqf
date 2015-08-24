@@ -83,7 +83,7 @@ if (_class != "O_OFFICER_F") then {
 						};
 						
 						if (_class == "O_SOLDIER_LAT_F") then {
-							_squadWeapons = if (random 1 > 0.25) then { ["rhs_rpg7_PG7VL_mag","rhs_weap_rpg7","rhs_rpg_empty"]; } else { ["rhs_fim92_mag","rhs_weap_fim92","rhs_rpg_empty"]; };
+							_squadWeapons = if (random 1 > 0.15) then { ["rhs_rpg7_PG7VL_mag","rhs_weap_rpg7","rhs_rpg_empty"]; } else { ["rhs_fim92_mag","rhs_weap_fim92","rhs_rpg_empty"]; };
 						};
 					};
 				};

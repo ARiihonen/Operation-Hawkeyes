@@ -16,13 +16,8 @@ if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targ
 		deleteWaypoint ((waypoints _x) select 0);
 	};
 	
-	diag_log "";
-	diag_log format ["Group: %1, mission: %2, outoftown: %3", _x, _mission, _x getVariable ["MGP_outOfTown", false]];
 	if (_mission != "alert" || _x getVariable ["MGP_outOfTown", false]) then {
-		diag_log "Assigning vehicles";
 		_x call compile preprocessFile "ai\vehicleAssign.sqf";
-	} else {
-		diag_log "Vehicles not assigned";
 	};
 } forEach _groups;
 

@@ -17,7 +17,7 @@ tf_defaultWestRiflemanRadio = "tf_rf_7800str"; //shit short range radio
 tf_defaultWestAirborneRadio = "tf_anarc210"; //never used this one idk
 
 _settingsSwWest = false call TFAR_fnc_generateSwSettings;
-_settingsSwWest set [2, ["31.1","31.2","31.3","31.4","31.5"]];
+_settingsSwWest set [2, ["31.10","31.15","31.20","31.25","31.90"]];
 tf_freq_west = _settingsSwWest;
 
 _settingsLrWest = false call TFAR_fnc_generateLrSettings;
@@ -62,19 +62,26 @@ _veh = targetCarTwo;
 ] call BIS_fnc_initVehicle;
 
 //Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
+["return", true, ["Return to base by helicopter after the mission is complete", "Extract", "respawn_west"], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
+
+_cacheTaskAssigned = false;
 if (playersNumber west > 9) then {
-	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", ""], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
+	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", "marker_ao"], nil, "ASSIGNED", 2, false, true] call BIS_fnc_setTask;
+	_cacheTaskAssigned = true;
 };
+["tango", true, ["Capture or kill the militia leader.", "Neutralise leader", "marker_ao"], nil, "ASSIGNED", 3, false, true] call BIS_fnc_setTask;
 
-["kill", true, ["Capture or kill the militia leader.", "Neutralise leader", ""], nil, "ASSIGNED", 2, false, true] call BIS_fnc_setTask;
-
-/*
 //Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
-_progress = [] spawn {
+_progress = [_cacheTaskAssigned] spawn {
 	
 	//Init all variables you need in this loop
 	_ending = false;
 	_playersDead = false;
+	
+	_thingDone = false;
+	_killTaskUpdated = false;
+	_cacheTaskAssigned = _this select 0;
+	_destroyTaskUpdated = false;
 
 	//Starts a loop to check mission status every second, update tasks, and end mission when appropriate
 	while {!_ending} do {
@@ -82,11 +89,212 @@ _progress = [] spawn {
 		sleep 1;
 		
 		//Mission ending condition check
-		if ( _playersDead ) then {
+		if ( forceEnding || _playersDead || (_thingDone && ( _playersInBase || _playersEscaped )) ) then {
 			_ending = true;
 			
+			_tangoCaptured = if (alive tango && tango getVariable ["MGP_captured", false]) then { true; } else { false; };
+			if (!killConfirmed) then {
+				if (!alive tango || _tangoCaptured) then {
+					["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+				} else {
+					["tango", "FAILED", false] call BIS_fnc_taskSetState;
+				};
+			};
+			
+			if (_cacheTaskAssigned) then {
+				if (!alive stashA && !alive stashB) then {
+					["caches", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+				} else {
+					["caches", "FAILED", false] call BIS_fnc_taskSetState;
+				};
+			};
+			
+			if (_playersInBase || _playersEscaped) then {
+				if (_playersInBase) then {
+					["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+				} else {
+					["tango", "CANCELED", false] call BIS_fnc_taskSetState;
+				};
+			} else {
+				["return", "FAILED", false] call BIS_fnc_taskSetState;
+			};
+			
+			_recognitionState = if (!alive tango && !killConfirmed) then { "initially"; } else { "officially"; };
+			_successState = if (killConfirmed || _tangoCaptured) then { "success"; } else { "failure"; };
+			if (_cacheTaskAssigned) then {
+				if (killConfirmed || _tangoCaptured) then {
+					if (!alive stashA && !alive stashB) then {
+						_successState = format ["complete %1", _successState];
+					} else {
+						_successState = format ["partial %1", _successState];
+					};
+				} else {
+					if (alive stashA && alive stashB) then {
+						_successState = format ["complete %1", _successState];
+					} else {
+						_successState = format ["partial %1", _successState];
+					};
+				};
+			};
+			_successState = format ["a %1", _successState];
+			_endTextStatus = composeText [ format ["Operation HIFK was %1 considered %2", _recognitionState, _successState]];
+			
+			_tasksTotal = "";
+			if (_cacheTaskAssigned) then {
+				if ( (killConfirmed || _tangoCaptured) && !alive stashA && !alive stashB ) then {
+					_tasksTotal = "All tasks were completed successfully:";
+				} else {
+					
+					if ( (killConfirmed || _tangoCaptured) || !alive stashA || !alive stashB ) then {
+						_tasksTotal = "Some tasks were completed successfully:";
+					} else {
+						_tasksTotal = "No tasks were completed successfully:";
+					};
+				};
+			};
+			
+			_targetStatus = "The target managed to escape,";
+			if (killConfirmed) then {
+				_targetStatus = "was confirmed dead during the raid,";
+			} else {
+				if (!alive tango) then {
+					_targetStatus = "was later confirmed dead,";
+				} else {
+					if (_tangoCaptured) then {
+						_targetStatus = "was successfully apprehended,";
+					};
+				};
+			};
+			
+			_cachesQualifier = "";
+			_cachesStatus = "";
+			if (_cacheTaskAssigned || (!alive stashA && !alive stashB)) then {
+				if (!alive stashA && !alive stashB) then {
+					_cachesStatus = "both weapons caches were destroyed";
+					
+					if (!alive tango || _tangoCaptured) then {
+						_cachesQualifier = "and ";
+					} else {
+						_cachesQualifier = "but ";
+					};
+				} else {
+					if (!alive stashA || !alive stashB) then {
+						_cacheStatus = "one of the weapons caches was destroyed";
+						
+						if (!alive tango || _tangoCaptured) then {
+						_cachesQualifier = "and ";
+						} else {
+							_cachesQualifier = "but ";
+						};
+					} else {
+						_cacheStatus = "none of the weapons caches were destroyed";
+						
+						if (alive tango) then {
+							_cachesQualifier = "and ";
+						} else {
+							_cachesQualifier = "but ";
+						};
+					};
+				};
+			};
+			_endTextTasks = composeText [ 
+				format ["%1", _tasksTotal], 
+				lineBreak, 
+				format ["The target %1", _targetStatus], 
+				lineBreak,
+				format ["%1%2", _cachesQualifier, _cachesStatus]
+			];
+			
+			_casualtiesPlayers = "";
+			_totalPlayers = count allPlayers;
+			_deadPlayers = 0;
+			{
+				if (!alive _x) then {
+					_deadPlayers = _deadPlayers + 1;
+				};
+			} forEach allPlayers;
+			_percentDead = _deadPlayers/_allPlayers;
+
+			if (_deadPlayers == 0) then {
+				_casualtiesPlayers = "no";
+			} else {
+				if (_percentDead < 0.3) then {
+					_casualtiesPlayers = "significant";
+				} else {
+					if (_percentDead < 0.6) then {
+						_casualtiesPlayers = "heavy";
+					} else {
+						_casualtiesPlayers = "catastrophic";
+					};
+				};
+			};
+
+			_casualtiesEnemy = 0;
+			_casualtiesCivilian = 0;
+			{
+				if (side _x == east || side _x == resistance) then {
+					if (!alive _x) then {
+						_casualtiesEnemy = _casualtiesEnemy + 1;
+					};
+				} else {
+					if (side _x == civilian) then {
+						if (!alive _x) then {
+							_casualtiesCivilian = _casualtiesCivilian + 1;
+						};
+					};
+				};
+			} forEach allUnits;
+
+			_assaultText = "";
+			if (count assault > 0 || ambushActivated) then {
+				_assaultText = "however, other combat activity during the operation has made it impossible to estimate how many of these were a direct result of the raid.";
+			};
+			
+			_endTextCasualties = composeText [
+				format ["The special jaeger team suffered %1 casualties %2,", _casualtiesPlayers],
+				lineBreak,
+				format ["with %1 enemy combatants and %2 civilians killed", _casualtiesEnemy, _casualtiesCivilian],
+				lineBreak,
+				format ["%1", _assaultText]
+			];
+			
+			_endState = "";
+			if (alive tango) then {
+				_endState = "loss";
+			} else {
+				_endState = "win";
+			};
+			
+			if (_cacheTaskAssigned || (!alive stashA && !alive stashB)) then {
+				if (_endState == "win") then {
+					if (!alive stashA && !alive stashB) then {
+						_endState = format ["total%1", _endState];
+					} else {
+						_endState = format ["partial%1", _endState];
+					};
+				} else {
+					if (!alive stashA && !alive stashB) then {
+						_endState = format ["partial%1", _endState];
+					} else {
+						_endState = format ["total%1", _endState];
+					};
+				};
+			} else {
+				_endState = format ["total%1", _endState];
+			};
+			
+			_commendationText = "";
+			if (_casualtiesCivilian == 0 && _endState == "totalwin") then {
+				_commendationText = "The finnish special jaegers have earned international praise for their efficiency and professionalism during this important operation.";
+			} else {
+				if ( (_casualtiesCivilian > 0 && (count assault == 0)) || _endState == "totalloss" || (_endState == "partialloss" && _casualtiesPlayers != "no")) then {
+					_commendationText = "The decision to send such an inexperienced unit on an important mission, in an apparent attempt to get them important combat experience at the cost of the mission's success, has been heavily criticized.";
+				};
+			};
+			_endTextPS = format ["%1", _commendationText];
+			
 			//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
-			[[[],"end.sqf"], "BIS_fnc_execVM", true, false] spawn BIS_fnc_MP;
+			[[[_endState, _endTextStatus, _endTextTasks, _endTextCasualties, _endTextPS],"end.sqf"], "BIS_fnc_execVM", true, false] spawn BIS_fnc_MP;
 		};
 		
 		//Sets _playersDead as true if nobody is still alive
@@ -97,18 +305,42 @@ _progress = [] spawn {
 			};
 		} forEach playableUnits;
 		
+		_thingDone = if (!alive tango || !alive stashA || !alive stashB || !canMove heko) then { true; } else { false; };
+		
 		_playersInBase = true;
 		{
-			if (!(alive _x || _x in baseTrigger)) then {
+			if ((alive _x) && (!(_x in trigger_base) || ( vehicle _x != _x) )) then {
 				_playersInBase = false;
 			};
 		} forEach playableUnits;
-
-		//Updating tasks example: ["TaskName", "STATE", false] call BIS_fnc_taskSetState;
-		//Custom task update notification: [ ["NotificationName", ["Message"]], "BIS_fnc_showNotification"] call BIS_fnc_MP;
+		
+		_playersEscaped = true;
+		if (!canMove heko) then {
+			{
+				if (alive _x && _x in trigger_escapeArea) then {
+					_playersEscaped = false;
+				};
+			} forEach playableUnits;
+		} else {
+			_playersEscaped = false;
+		};
+		
+		//track tango capture
+		
+		if (killConfirmed && !_killTaskUpdated) then {
+			["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+			[ ["TaskSucceeded", ["Kill Confirmed"]], "BIS_fnc_showNotification"] call BIS_fnc_MP;
+			_killTaskUpdated = true;
+		};
+		
+		if (!alive stashA && !alive stashB && !_destroyTaskUpdated) then {
+			["caches", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+			[ ["TaskSucceeded", ["Caches Destroyed"]], "BIS_fnc_showNotification"] call BIS_fnc_MP;
+			_destroyTaskUpdated = true;
+		};
 	};
 };
-*/
+
 //client inits wait for serverInit to be true before starting, to make sure all variables the server sets up are set up before clients try to refer to them (which would cause errors)
 serverInit = true;
 publicVariable "serverInit";

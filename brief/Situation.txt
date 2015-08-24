@@ -1,1 +1,7 @@
-situation text
+After the civil war in 2009 and the recapturing of South Zagoria by Chernarussian forces in 2011, much of the influence in the area is wielded by various pro-ChDKZ militias.
+<br /> <br />
+A UN peacekeeping force is deployed in the country in an attempt to enforce stability, but they have not had much success against a number of determined pockets of resistance.
+<br /> <br />
+A previous recon operation has identified the location of Niklas Polzin, a prominent local militia leader responsible for a significant amount of ambushes and IED strikes against UN relief convoys and peacekeeping forces.
+<br /> <br />
+Polzin, codename Jokeri, was observed in the vicinity of <marker name = 'marker_pustoshka'>Pustoshka</marker> just two days ago. Further recon has verified that he is using the towns of <marker name = 'marker_pustoshka'>Pustoshka</marker>, <marker name = 'marker_pogorevka'>Pogorevka</marker>, and <marker name = 'marker_rogovo'>Rogovo</marker> as a staging ground for IED attacks on UN convoys on <marker name = 'marker_msr'>MSR Tuonela</marker>.
