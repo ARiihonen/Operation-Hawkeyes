@@ -66,7 +66,7 @@ _unGroupCheck = [_groups, _town, _mission] spawn {
 		if (!_cancel) then {
 			_allDone = true;
 			{
-				_status = _x getVariable (format ["MGP_%1Done", _mission]);
+				_status = _x getVariable [(format ["MGP_%1Done", _mission]), true];
 				if (!_status) then {
 					_allDone = false;
 				};

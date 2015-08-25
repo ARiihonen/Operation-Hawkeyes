@@ -4,10 +4,20 @@ _endTextTasks = _this select 2;
 _endTextCasualties = _this select 3; 
 _endTextPS = _this select 4;
 
-titleText [_endTextStatus, "BLACK OUT", 4];
-titleText [_endTextTasks, "BLACK", 1];
-titleText [_endTextCasualties, "BLACK", 1];
-titleText [_endTextPS, "BLACK", 1];
+sleep 2; 
+1 cutText [_endTextStatus, "BLACK", 2];
+//1 cutFadeout 30;
+sleep 10;  
+2 cutText [_endTextTasks, "BLACK", 2];
+//2 cutFadeout 20;
+sleep 10;  
+3 cutText [_endTextCasualties, "BLACK", 2];
+//3 cutFadeout 10;
+sleep 10;  
+4 cutText [_endTextPS, "BLACK", 2];
+4 cutFadeOut 300;
+
+sleep 15;
 
 if (alive player) then {
 	

@@ -56,6 +56,7 @@ for "_i" from 0 to 3 do {
 	_group setFormation "WEDGE";
 	
 	if (_group getVariable ["MGP_inVehicles", false] || _group getVariable ["MGP_outOfTown", false]) then {
+		_vehicleMarker = format ["%1_vehicles", _town];
 		
 		if (_group getVariable ["MGP_outOfTown", false]) then {
 			_vehOne = (_group getVariable "MGP_groupVehicles") select 0;
@@ -68,13 +69,13 @@ for "_i" from 0 to 3 do {
 			_wp setWaypointName "Getin";
 		};
 		
-		_wp = _group addWaypoint [markerPos _defenseSpot, 0];
+		_wp = _group addWaypoint [markerPos _vehicleMarker, 0];
 		_wp setWaypointType "MOVE";
 		_wp setWaypointSpeed "NORMAL";
 		_wp setWaypointFormation "COLUMN";
 		_wp setWaypointName "Back home";
 		
-		_wp = _group addWaypoint [markerPos _defenseSpot, 0];
+		_wp = _group addWaypoint [markerPos _vehicleMarker, 0];
 		_wp setWaypointType "GETOUT";
 		_wp setWaypointSpeed "NORMAL";
 		_wp setWaypointFormation "WEDGE";
@@ -98,6 +99,7 @@ for "_i" from 0 to 3 do {
 	_wp setWaypointCombatMode "RED";
 	_wp setWaypointTimeout [600, 600, 600];
 	_wp setWaypointName "Defend";
+	_wp setWaypointBehaviour "COMBAT";
 	
 	{
 		_wp = _group addWaypoint [markerPos _x, 0];

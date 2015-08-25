@@ -18,7 +18,7 @@ _originalGroups = call compile format ["originalGroups%1", _town];
 //original protection group spots
 if ((_town isEqualTo "A" && targetLocation == 0) || (_town isEqualTo "B" && targetLocation == 1)) then {
 
-	_homeMarker = format ["%1_target_home_%2", _town, targetLocation];
+	_homeMarker = format ["%1_target_home_%2", _town, target];
 	
 	{
 		unassignVehicle _x;

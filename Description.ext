@@ -30,6 +30,66 @@ class Header {
 	maxPlayers = 14;
 };
 
+class CfgRadio
+{
+	sounds[] = {};
+	class RadioAmbushStart
+	{
+		name = "";
+		sound[] = {};
+		title = "CONVOY THOR TO ALL UN TROOPS, WE ARE UNDER ATTACK ON MSR TUONELA *STATIC*";
+	};
+	
+	class RadioAmbushA_0
+	{
+		name = "";
+		sound[] = {};
+		title = "*STATIC* REPEAT, UNDER ATTACK NEAR VYBOR";
+	};
+	
+	class RadioAmbushA_1
+	{
+		name = "";
+		sound[] = {};
+		title = "GRID 03950645, VYBOR, SEND HELP";
+	};
+	
+	class RadioAmbushA_2
+	{
+		name = "";
+		sound[] = {};
+		title = "REPEAT, CONVOY UNDER ATTACK, EAST OF VYBOR, GRID 03950645";
+	};
+	
+	class RadioAmbushB_0
+	{
+		name = "";
+		sound[] = {};
+		title = "*STATIC* REPEAT, UNDER ATTACK NEAR KABANINO";
+	};
+	
+	class RadioAmbushB_1
+	{
+		name = "";
+		sound[] = {};
+		title = "GRID 05470685, KABANINO, SEND HELP";
+	};
+	
+	class RadioAmbushB_2
+	{
+		name = "";
+		sound[] = {};
+		title = "REPEAT, CONVOY UNDER ATTACK, EAST OF KABANINO, GRID 05470685";
+	};
+	
+	class RadioAmbushStatic
+	{
+		name = "";
+		sound[] = {};
+		title = "*STATIC*";
+	};
+};
+
 //Mission ending states, used via BIS_fnc_endMission from end.sqf
 class CfgDebriefing {
 

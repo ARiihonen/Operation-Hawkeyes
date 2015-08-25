@@ -11,7 +11,7 @@ Enemy forces:
 <br /> <br />
 Jokeri's militia consists of roughly a platoon or two of combatants, including his own personal guard of veteran soldiers. In addition to regular AK-rifles, their equipment seems to consist of a surprising amount of RPG-7 launchers and even some FIM-92 Stinger MANPADS.
 <br /> <br />
-The militia has a large weapon cache in <marker name = 'marker_pustoshka'>Pustoshka</marker>, and either <marker name = 'marker_pogorevka'>Pogorevka</marker> or <marker name = 'marker_rogovo'>Rogovo</marker>. Destroying these would seriously harm their chances of successful IED strikes against convoys for some time.
+The militia has a large weapon cache in <marker name = 'marker_pustoshka'>Pustoshka</marker>, and another one in either <marker name = 'marker_pogorevka'>Pogorevka</marker> or <marker name = 'marker_rogovo'>Rogovo</marker>. Destroying these would seriously harm their chances of successful IED strikes against convoys for some time.
 <br /> <br />
 The target is not the only threat in the AO. Be on the lookout for possible competing militias looking to get their hands on Jokeri's explosive supplies.
 <br /> <br />

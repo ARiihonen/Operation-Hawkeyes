@@ -29,6 +29,7 @@ if (isServer) then {
 		_village = ["A", "B"] call BIS_fnc_selectRandom;
 		ambushTown = _village;
 	};
+	ambushTown = "A";
 	
 	assault = [];
 	if (random 1 < 0.25) then {
@@ -38,6 +39,7 @@ if (isServer) then {
 		
 		assault = [assault, 2, 3] call compile preprocessFile "logic\randomise.sqf";
 	};
+	assaultUnready = count assault;
 	
 	_minMilitiaA = if (targetLocation == 0) then { 6; } else { 18; };
 	_maxMilitiaA = if (targetLocation == 0) then { 18; } else { 27; };

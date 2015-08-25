@@ -61,15 +61,41 @@ _veh = targetCarTwo;
 	]
 ] call BIS_fnc_initVehicle;
 
-//Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
-["return", true, ["Return to base by helicopter after the mission is complete", "Extract", "respawn_west"], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
+_veh = playerCarOne;
+[
+	_veh,
+	["blue",1],
+	[
+		"HideGlass2", 1,
+		"HideBumper2", 0,
+		"HideConstruction", 0,
+		"Proxy", 0,
+		"Destruct", 0
+	]
+] call BIS_fnc_initVehicle;
 
+_veh = playerCarTwo;
+[
+	_veh,
+	["blue",1],
+	[
+		"HideGlass2", 1,
+		"HideBumper2", 0,
+		"HideConstruction", 0,
+		"Proxy", 0,
+		"Destruct", 0
+	]
+] call BIS_fnc_initVehicle;
+
+
+//Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
+["tango", true, ["Capture or kill the militia leader.", "Neutralise leader", "marker_ao"], nil, "ASSIGNED", 3, false, true] call BIS_fnc_setTask;
 _cacheTaskAssigned = false;
 if (playersNumber west > 9) then {
 	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", "marker_ao"], nil, "ASSIGNED", 2, false, true] call BIS_fnc_setTask;
 	_cacheTaskAssigned = true;
 };
-["tango", true, ["Capture or kill the militia leader.", "Neutralise leader", "marker_ao"], nil, "ASSIGNED", 3, false, true] call BIS_fnc_setTask;
+["return", true, ["Return to base after the mission is complete", "Extract", "respawn_west"], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
 
 //Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
 _progress = [_cacheTaskAssigned] spawn {
@@ -78,10 +104,13 @@ _progress = [_cacheTaskAssigned] spawn {
 	_ending = false;
 	_playersDead = false;
 	
-	_thingDone = false;
 	_killTaskUpdated = false;
 	_cacheTaskAssigned = _this select 0;
 	_destroyTaskUpdated = false;
+	
+	_thingDone = false;
+	_playersInBase = false;
+	_playersEscaped = false;
 
 	//Starts a loop to check mission status every second, update tasks, and end mission when appropriate
 	while {!_ending} do {
@@ -92,7 +121,21 @@ _progress = [_cacheTaskAssigned] spawn {
 		if ( forceEnding || _playersDead || (_thingDone && ( _playersInBase || _playersEscaped )) ) then {
 			_ending = true;
 			
-			_tangoCaptured = if (alive tango && tango getVariable ["MGP_captured", false]) then { true; } else { false; };
+			_tangoControlled = false;
+			
+			if (tango in trigger_base) then {
+				_tangoControlled = true;
+			} else {
+				{
+					_dist = _x distance tango;
+					if (alive _x && _dist < 20) then {
+						_tangoControlled = true;
+					};
+				} forEach playableUnits;
+			};
+			
+			//_tangoCaptured = if (tango getVariable [QGVAR(isHandcuffed), false] && _tangoControlled) then { true; } else { false; };
+			_tangoCaptured = false;
 			if (!killConfirmed) then {
 				if (!alive tango || _tangoCaptured) then {
 					["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;
@@ -119,7 +162,8 @@ _progress = [_cacheTaskAssigned] spawn {
 				["return", "FAILED", false] call BIS_fnc_taskSetState;
 			};
 			
-			_recognitionState = if (!alive tango && !killConfirmed) then { "initially"; } else { "officially"; };
+			_targetTown = if (targetLocation == 0) then { "A"; } else { "B"; };
+			_recognitionState = if (!alive tango && !killConfirmed && (ambushTown == _targetTown && count assault != 0)) then { "initially"; } else { "officially"; };
 			_successState = if (killConfirmed || _tangoCaptured) then { "success"; } else { "failure"; };
 			if (_cacheTaskAssigned) then {
 				if (killConfirmed || _tangoCaptured) then {
@@ -137,7 +181,7 @@ _progress = [_cacheTaskAssigned] spawn {
 				};
 			};
 			_successState = format ["a %1", _successState];
-			_endTextStatus = composeText [ format ["Operation HIFK was %1 considered %2", _recognitionState, _successState]];
+			_endTextStatus = format ["Operation HIFK was %1 considered %2", _recognitionState, _successState];
 			
 			_tasksTotal = "";
 			if (_cacheTaskAssigned) then {
@@ -153,15 +197,15 @@ _progress = [_cacheTaskAssigned] spawn {
 				};
 			};
 			
-			_targetStatus = "The target managed to escape,";
+			_targetStatus = "managed to escape";
 			if (killConfirmed) then {
-				_targetStatus = "was confirmed dead during the raid,";
+				_targetStatus = "was confirmed dead during the raid";
 			} else {
 				if (!alive tango) then {
-					_targetStatus = "was later confirmed dead,";
+					_targetStatus = ", however, was later confirmed dead";
 				} else {
 					if (_tangoCaptured) then {
-						_targetStatus = "was successfully apprehended,";
+						_targetStatus = "was successfully apprehended";
 					};
 				};
 			};
@@ -173,37 +217,34 @@ _progress = [_cacheTaskAssigned] spawn {
 					_cachesStatus = "both weapons caches were destroyed";
 					
 					if (!alive tango || _tangoCaptured) then {
-						_cachesQualifier = "and ";
+						_cachesQualifier = ", and ";
 					} else {
-						_cachesQualifier = "but ";
+						_cachesQualifier = ", but ";
 					};
 				} else {
 					if (!alive stashA || !alive stashB) then {
 						_cacheStatus = "one of the weapons caches was destroyed";
 						
 						if (!alive tango || _tangoCaptured) then {
-						_cachesQualifier = "and ";
+						_cachesQualifier = ", and ";
 						} else {
-							_cachesQualifier = "but ";
+							_cachesQualifier = ", but ";
 						};
 					} else {
 						_cacheStatus = "none of the weapons caches were destroyed";
 						
 						if (alive tango) then {
-							_cachesQualifier = "and ";
+							_cachesQualifier = ", and ";
 						} else {
-							_cachesQualifier = "but ";
+							_cachesQualifier = ", but ";
 						};
 					};
 				};
 			};
-			_endTextTasks = composeText [ 
-				format ["%1", _tasksTotal], 
-				lineBreak, 
-				format ["The target %1", _targetStatus], 
-				lineBreak,
-				format ["%1%2", _cachesQualifier, _cachesStatus]
-			];
+			_endTextTasksOne = format ["%1", _tasksTotal]; 
+			_endTextTasksTwo = format ["The target %1", _targetStatus];
+			_endTextTasksThree = format ["%1%2", _cachesQualifier, _cachesStatus];
+			_endTextTasks = format ["%1%2%3", _endTextTasksOne, _endTextTasksTwo, _endTextTasksThree];
 			
 			_casualtiesPlayers = "";
 			_totalPlayers = count allPlayers;
@@ -213,7 +254,7 @@ _progress = [_cacheTaskAssigned] spawn {
 					_deadPlayers = _deadPlayers + 1;
 				};
 			} forEach allPlayers;
-			_percentDead = _deadPlayers/_allPlayers;
+			_percentDead = _deadPlayers/(count allPlayers);
 
 			if (_deadPlayers == 0) then {
 				_casualtiesPlayers = "no";
@@ -247,16 +288,13 @@ _progress = [_cacheTaskAssigned] spawn {
 
 			_assaultText = "";
 			if (count assault > 0 || ambushActivated) then {
-				_assaultText = "however, other combat activity during the operation has made it impossible to estimate how many of these were a direct result of the raid.";
+				_assaultText = "However, other combat activity during the morning of the operation has made it impossible to estimate how many of these were a direct result of the raid.";
 			};
 			
-			_endTextCasualties = composeText [
-				format ["The special jaeger team suffered %1 casualties %2,", _casualtiesPlayers],
-				lineBreak,
-				format ["with %1 enemy combatants and %2 civilians killed", _casualtiesEnemy, _casualtiesCivilian],
-				lineBreak,
-				format ["%1", _assaultText]
-			];
+			_endTextCasualtiesOne = format ["The special jaeger team suffered %1 casualties", _casualtiesPlayers];
+			_endTextCasualtiesTwo =	format ["with %1 enemy combatants and %2 civilians killed", _casualtiesEnemy, _casualtiesCivilian];
+			_endTextCasualtiesThree = format ["%1", _assaultText];
+			_endTextCasualties = format ["%1, %2. %3", _endTextCasualtiesOne, _endTextCasualtiesTwo, _endTextCasualtiesThree];
 			
 			_endState = "";
 			if (alive tango) then {
@@ -324,8 +362,6 @@ _progress = [_cacheTaskAssigned] spawn {
 		} else {
 			_playersEscaped = false;
 		};
-		
-		//track tango capture
 		
 		if (killConfirmed && !_killTaskUpdated) then {
 			["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;

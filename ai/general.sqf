@@ -64,9 +64,39 @@ if (ambushTown != "C") then {
 	[ambushTown, "ambush"] execVM "ai\mission.sqf";
 };
 
+_targetLoop = [] spawn {
+	waitUntil {dayTime > 6};
+	_targetTown = if (targetLocation == 0) then { "A"; } else { "B"; };
+	_homeMarker = format ["%1_target_home_%2", _targetTown, target];
+	
+	while {true} do {
+		sleep (10 + random 590);
+		if (compile format ["status%1 == 'neutral'", _targetTown]) then {
+			_grp = createGroup east;
+			[tango, protectionManOne, protectionManTwo] joinSilent _grp;
+			
+			_grp setBehaviour "SAFE";
+			_grp setSpeedMode "LIMITED";
+			
+			for "_i" from 1 to (1 + floor random 5) do {
+				_wp = _grp addWaypoint [_homeMarker, 100];
+			};
+			
+			_wp = _grp addWaypoint [_homeMarker, 0];
+		};
+	};
+};
+
 _civilianLoop = [] spawn {
 	while {true} do {
-		_waitTime = if (dayTime > 5.75) then { 60 + (random 120); } else { 300 + (random 120); };
+		_minWait = 2;
+		_maxWait = 10;
+		if (dayTime < 6) then {
+			_minWait = -1*((dayTime - 6)*20);
+			_maxWait = _minWait * 20;
+		};
+		_waitTime = (_minWait + (random (_maxWait - _minWait)));
+		diag_log format ["Civilian traffic min wait: %1, max wait: %2, wait time: %3", _minWait, _maxWait, _waitTime];
 		sleep _waitTime;
 		
 		_town = ["A", "B"] call BIS_fnc_selectRandom;
@@ -100,6 +130,8 @@ _civilianLoop = [] spawn {
 		
 		_civilian = if (count _civPool > 0) then { _civPool call BIS_fnc_selectRandom; } else { false; };
 		if (typeName _civilian != "BOOL") then {
+			(group _civilian) setSpeedMode "LIMITED";
+			(group _civilian) setBehaviour "SAFE";
 			_civilian setVariable ["available", false, false];
 		};
 		
@@ -144,9 +176,6 @@ _civilianLoop = [] spawn {
 			_wp = (group _civilian) addWaypoint [_startWaypoints select 0, 0];
 			_wp setWaypointType "MOVE";
 			_wp setWaypointStatements ["true", "this setVariable ['available', true, false];"];
-			
-			_civilian setSpeedMode "LIMITED";
-			_civilian setBehaviour "SAFE";
 		};
 	};
 };

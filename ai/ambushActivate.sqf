@@ -11,3 +11,13 @@ _marker4 = format ["%1_ambush_boom4", _town];
 } forEach [_marker1, _marker2, _marker3, _marker4];
 
 ambushActivated = true;
+
+sleep 10;
+
+(leader convoyGroup) sideRadio "RadioAmbushStart";
+sleep 5;
+for "_i" from 0 to 2 do {
+	(leader convoyGroup) sideRadio (format ["RadioAmbush%1_%2", _town, _i]);
+	sleep 2;
+};
+(leader convoyGroup) sideRadio "RadioAmbushStatic";

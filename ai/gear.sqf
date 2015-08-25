@@ -21,6 +21,18 @@ if (_class != "O_OFFICER_F") then {
 
 	switch _side do {
 		case west: {
+			comment "Exported from Arsenal by Caranfin";
+			
+			comment "Remove existing items";
+			removeAllWeapons _this;
+			removeAllItems _this;
+			removeAllAssignedItems _this;
+			removeUniform _this;
+			removeVest _this;
+			removeBackpack _this;
+			removeHeadgear _this;
+			removeGoggles _this;
+
 			comment "Add containers";
 			_this forceAddUniform "MNP_CombatUniform_NOR_A";
 			_this addItemToUniform "ACE_tourniquet";
@@ -29,9 +41,11 @@ if (_class != "O_OFFICER_F") then {
 			for "_i" from 1 to 4 do {_this addItemToUniform "ACE_epinephrine";};
 			_this addItemToUniform "ACE_EarPlugs";
 			_this addVest "MNP_Vest_NOR_1";
-			for "_i" from 1 to 4 do {_this addItemToVest "hlc_20rnd_762x51_b_G3";};
+			for "_i" from 1 to 3 do {_this addItemToVest "hlc_20rnd_762x51_b_G3";};
 			_this addItemToVest "HandGrenade";
 			for "_i" from 1 to 2 do {_this addItemToVest "SmokeShell";};
+			_this addBackpack "tf_rt1523g";
+			_this addHeadgear "MNP_Helmet_UN";
 
 			comment "Add weapons";
 			_this addWeapon "hlc_rifle_g3ka4";
@@ -40,10 +54,9 @@ if (_class != "O_OFFICER_F") then {
 			_this linkItem "ItemMap";
 			_this linkItem "ItemCompass";
 			_this linkItem "ItemWatch";
-			_this linkItem "tf_anprc152";
+			_this linkItem "tf_anprc152_1";
 
-			comment "Set identity";
-			_this setSpeaker (["Male01GRE","Male02GRE","Male03GRE","Male04GRE","mMale05GRE", "Male06GRE"] select (floor random 6));
+			_this setSpeaker (["Male01GRE","Male02GRE","Male03GRE","Male04GRE","Male05GRE", "Male06GRE"] select (floor random 6));
 		};
 		
 		case civilian: {
