@@ -44,7 +44,6 @@ if (_class != "O_OFFICER_F") then {
 			for "_i" from 1 to 3 do {_this addItemToVest "hlc_20rnd_762x51_b_G3";};
 			_this addItemToVest "HandGrenade";
 			for "_i" from 1 to 2 do {_this addItemToVest "SmokeShell";};
-			_this addBackpack "tf_rt1523g";
 			_this addHeadgear "MNP_Helmet_UN";
 
 			comment "Add weapons";

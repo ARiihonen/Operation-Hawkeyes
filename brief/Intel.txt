@@ -1,10 +1,8 @@
 The target, codename Jokeri, is Niklas Polzin, a previously dual Finnish/Chernarussian national who renounced his Finnish citizenship during the Chernarussian civil war of 2009 and moved to Chernarus in order to fight with the ChDKZ forces and has since gained influence as a ruthless commander.
 <br /> <br />
-A recent picture taken by a recon team near XXXX, the target is being accompanied by some of his personal guard:
---- PICTURE ---
-<br /> <br />
-He is known to drive a red offroad vehicle similar to the one in this picture:
---- CAR PICTURE ---
+A recon team managed to get a picture of the target near the AO two days ago, the target is meeting some local fighters while accompanied by some of his personal guard:
+<img image="TargetPicture.jpg" /> <br />
+His red offroad vehicle can be seen on the background of the picture.
 <br /> <br />
 <br /> <br />
 Enemy forces:
@@ -20,7 +18,7 @@ The civilian population around the AO is to be assumed loyal to Jokeri. Any cont
 <br /> <br />
 Friendly forces:
 <br /> <br />
-A vehicle convoy of the norwegian peacekeepers is scheduled to pass by on <marker name = 'marker_msr'>MSR Tuonela</marker> on their way south-east at approximately XX:XX.
+A vehicle convoy of the norwegian peacekeepers is scheduled to pass by on <marker name = 'marker_msr'>MSR Tuonela</marker> on their way south-east sometime between 0530 and 0600.
 <br /> <br />
 <br /> <br />
 Environment:

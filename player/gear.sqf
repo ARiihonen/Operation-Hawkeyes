@@ -51,7 +51,7 @@ switch _class do {
 		player linkItem "ItemMap";
 		player linkItem "ItemCompass";
 		player linkItem "ItemWatch";
-		player linkItem "tf_anprc148jem_1";
+		player linkItem "tf_anprc148jem";
 		player linkItem "NVGoggles_OPFOR";
 	};
 	

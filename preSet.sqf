@@ -29,7 +29,6 @@ if (isServer) then {
 		_village = ["A", "B"] call BIS_fnc_selectRandom;
 		ambushTown = _village;
 	};
-	ambushTown = "A";
 	
 	assault = [];
 	if (random 1 < 0.25) then {
