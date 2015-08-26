@@ -1,7 +1,7 @@
 Operation-wide LR: CH 1, freq 31.00
 <br /> <br />
-Team Bravo SR: CH 1, freq 31.10 <br />
+Team Alpha SR: CH 1, freq 31.10 <br />
 Sierra One SR: CH 2, freq 31.15 <br />
-Team Alpha SR: CH 3, freq 31.20 <br />
+Team Bravo SR: CH 3, freq 31.20 <br />
 Sierra Two SR: CH 4, freq 31.25 <br />
 Helicopter Team (Haukka) SR: CH 5, freq 31.90

@@ -1,0 +1,11 @@
+The target, codename Jokeri, is Niklas Polzin, a previously dual Finnish/Chernarussian national who renounced his Finnish citizenship during the Chernarussian civil war of 2009 and moved to Chernarus in order to fight with the ChDKZ forces and has since gained influence as a ruthless commander.
+<br /> <br />
+Recon teams have reliably placed the target in the AO almost every night during the past week. He seems to change the specific building often, but is always in either <marker name = 'marker_pustoshka'>Pustoshka</marker>, <marker name = 'marker_pogorevka'>Pogorevka</marker>, or <marker name = 'marker_rogovo'>Rogovo</marker>.
+<br /> <br />
+Jokeri is known for wearing a blue track jacket and driving a red offroad vehicle. His personal guard does not wear a uniform, but their more professional equipment should be distinctive compared to the regular militia around the area.
+<br /> <br />
+The target meeting with a local community leader two days ago<br />
+<img image='brief\imageTarget.jpg'/> 
+<br /> <br />
+Some of his personal guard observed five days ago<br />
+<img image='brief\imageMilitia.jpg'/>

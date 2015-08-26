@@ -1,0 +1,14 @@
+Friendly forces:
+<br /> <br />
+A vehicle convoy of the norwegian peacekeepers is scheduled to pass by on <marker name = 'marker_msr'>MSR Tuonela</marker> on their way south-east sometime between 0530 and 0600.
+<br /> <br />
+<br /> <br />
+Enemy forces:
+<br /> <br />
+Jokeri's militia is stationed in the towns of <marker name = 'marker_pustoshka'>Pustoshka</marker>, <marker name = 'marker_pogorevka'>Pogorevka</marker>, and <marker name = 'marker_rogovo'>Rogovo</marker>. It consists of roughly a platoon or two of combatants, including his own personal guard of veteran soldiers. In addition to regular AK-rifles, their equipment seems to consist of a surprising amount of RPG-7 launchers and even some FIM-92 Stinger MANPADS.
+<br /> <br />
+The militia has a large weapon cache in <marker name = 'marker_pustoshka'>Pustoshka</marker>, and another one in either <marker name = 'marker_pogorevka'>Pogorevka</marker> or <marker name = 'marker_rogovo'>Rogovo</marker>. Destroying these would seriously harm their chances of successful IED strikes against convoys for some time.
+<br /> <br />
+The target is not the only threat in the AO. Be on the lookout for possible competing militias looking to get their hands on Jokeri's explosive supplies.
+<br /> <br />
+The civilian population around the towns is to be assumed loyal to Jokeri. Any contact with them might lead to the target being informed of your presence and their forces being called on alert.

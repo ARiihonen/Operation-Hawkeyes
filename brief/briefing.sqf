@@ -8,7 +8,9 @@ _execOne = if (playersNumber west > 9) then { "towns"; } else { "target's locati
 _execTwo = if (playersNumber west > 9) then { "taking out the weapon caches, and "; } else { ""; };
 
 //these need to be added so that the one you want on the bottom is first
-player createDiaryRecord ["Diary", ["Intel", LoadFile "brief\Intel.txt"]];
+player createDiaryRecord ["Diary", ["Environment and weather", LoadFile "brief\intelEnvironment.txt"]];
+player createDiaryRecord ["Diary", ["Other forces in the AO", LoadFile "brief\intelForces.txt"]];
+player createDiaryRecord ["Diary", ["Target information", LoadFile "brief\intelTarget.txt"]];
 player createDiaryRecord ["Diary", ["Signal", LoadFile "brief\Signal.txt"]];
 player createDiaryRecord ["Diary", ["Execution", format [LoadFile "brief\Execution.txt", _execOne, _execTwo] ]];
 player createDiaryRecord ["Diary", ["Mission", format [LoadFile "brief\Mission.txt",_missionExtra] ]];

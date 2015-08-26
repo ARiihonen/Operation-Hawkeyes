@@ -1,7 +1,7 @@
 //this bit is for all AI scripts you want to run at mission start. Maybe you want to spawn in dudes or something.
 {
 	if (typeOf _x == "O_soldier_M_F" && !(_x in (unitsA + unitsB)) ) then {
-		_x disableAI "MOVE";
+		_x forceSpeed 0;
 	};
 } forEach allUnits;
 
@@ -77,7 +77,8 @@ _targetLoop = [] spawn {
 	
 	while {true} do {
 		sleep (10 + random 590);
-		if (compile format ["status%1 == 'neutral'", _targetTown]) then {
+		_statusTown = call compile format ["status%1", _targetTown];
+		if (_statusTown == 'neutral') then {
 			_grp = createGroup east;
 			[tango, protectionManOne, protectionManTwo] joinSilent _grp;
 			
@@ -136,7 +137,7 @@ _civilianLoop = [] spawn {
 		_civilian = if (count _civPool > 0) then { _civPool call BIS_fnc_selectRandom; } else { false; };
 		if (typeName _civilian != "BOOL") then {
 			(group _civilian) setSpeedMode "LIMITED";
-			(group _civilian) setBehaviour "SAFE";
+			(group _civilian) setBehaviour "CARELESS";
 			_civilian setVariable ["available", false, false];
 		};
 		
