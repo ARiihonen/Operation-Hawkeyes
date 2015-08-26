@@ -1,5 +1,11 @@
 //this bit is for all AI scripts you want to run at mission start. Maybe you want to spawn in dudes or something.
 {
+	if (typeOf _x == "O_soldier_M_F" && !(_x in (unitsA + unitsB)) ) then {
+		_x disableAI "MOVE";
+	};
+} forEach allUnits;
+
+{
 	if (!isPlayer _x) then {
 		_x execVM "ai\gear.sqf";
 	};
@@ -96,7 +102,6 @@ _civilianLoop = [] spawn {
 			_maxWait = _minWait * 20;
 		};
 		_waitTime = (_minWait + (random (_maxWait - _minWait)));
-		diag_log format ["Civilian traffic min wait: %1, max wait: %2, wait time: %3", _minWait, _maxWait, _waitTime];
 		sleep _waitTime;
 		
 		_town = ["A", "B"] call BIS_fnc_selectRandom;

@@ -31,6 +31,7 @@ tf_freq_west_lr = _settingsLrWest;
 {
 	if (typeOf _x == "O_OFFICER_F") then {
 		tango = _x;
+		publicVariable "tango";
 	};
 } forEach allUnits;
 
@@ -100,13 +101,13 @@ _veh = playerCarTwo;
 } forEach [convoyOne, convoyTwo, convoyThree, convoyFour, convoyFive];
 
 //Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
-["tango", true, ["Capture or kill the militia leader.", "Neutralise leader", "marker_ao"], nil, "ASSIGNED", 3, false, true] call BIS_fnc_setTask;
+["tango", true, ["Capture or kill the militia leader.", "Neutralise leader", "marker_ao"], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
 _cacheTaskAssigned = false;
 if (playersNumber west > 9) then {
-	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", "marker_ao"], nil, "ASSIGNED", 2, false, true] call BIS_fnc_setTask;
+	["caches", true, ["Destroy the militia ammo caches from both towns", "Destroy Caches", "marker_ao"], nil, "CREATED", 2, false, true] call BIS_fnc_setTask;
 	_cacheTaskAssigned = true;
 };
-["return", true, ["Return to base after the mission is complete", "Extract", "respawn_west"], nil, "ASSIGNED", 1, false, true] call BIS_fnc_setTask;
+["return", true, ["Return to base after the mission is complete", "Extract", "respawn_west"], nil, "CREATED", 3, false, true] call BIS_fnc_setTask;
 "tango" call BIS_fnc_taskSetCurrent;
 
 //Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
@@ -178,16 +179,16 @@ _progress = [_cacheTaskAssigned] spawn {
 			
 			if (_playersInBase || _playersEscaped) then {
 				if (_playersInBase) then {
-					["tango", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+					["return", "SUCCEEDED", false] call BIS_fnc_taskSetState;
 				} else {
-					["tango", "CANCELED", false] call BIS_fnc_taskSetState;
+					["return", "CANCELED", false] call BIS_fnc_taskSetState;
 				};
 			} else {
 				["return", "FAILED", false] call BIS_fnc_taskSetState;
 			};
 			
 			_targetTown = if (targetLocation == 0) then { "A"; } else { "B"; };
-			_recognitionState = if (!alive tango && !killConfirmed) then { "initially"; } else { "officially"; };
+			_recognitionState = if ((!alive tango || side tango == civilian) && !killConfirmed) then { "initially"; } else { "officially"; };
 			_successState = if (killConfirmed || _tangoCaptured) then { "success"; } else { "failure"; };
 			if (_cacheTaskAssigned) then {
 				if (killConfirmed || _tangoCaptured) then {
@@ -221,11 +222,11 @@ _progress = [_cacheTaskAssigned] spawn {
 				};
 			};
 			
-			_targetStatus = "managed to escape";
+			_targetStatus = " managed to escape";
 			if (killConfirmed) then {
 				_targetStatus = " was confirmed dead during the raid";
 			} else {
-				if (!alive tango) then {
+				if (!alive tango || side tango == civilian) then {
 					_targetStatus = ", however, was later confirmed dead";
 				} else {
 					if (_tangoCaptured) then {
@@ -240,7 +241,7 @@ _progress = [_cacheTaskAssigned] spawn {
 				if (!alive stashA && !alive stashB) then {
 					_cachesStatus = "both weapons caches were destroyed";
 					
-					if (!alive tango || _tangoCaptured) then {
+					if (!alive tango || _tangoCaptured || side tango == civilian) then {
 						_cachesQualifier = ", and ";
 					} else {
 						_cachesQualifier = ", but ";
@@ -249,7 +250,7 @@ _progress = [_cacheTaskAssigned] spawn {
 					if (!alive stashA || !alive stashB) then {
 						_cacheStatus = "one of the weapons caches was destroyed";
 						
-						if (!alive tango || _tangoCaptured) then {
+						if (!alive tango || _tangoCaptured || side tango == civilian) then {
 						_cachesQualifier = ", and ";
 						} else {
 							_cachesQualifier = ", but ";
@@ -257,7 +258,7 @@ _progress = [_cacheTaskAssigned] spawn {
 					} else {
 						_cacheStatus = "none of the weapons caches were destroyed";
 						
-						if (alive tango) then {
+						if (alive tango || side tango == civilian) then {
 							_cachesQualifier = ", and ";
 						} else {
 							_cachesQualifier = ", but ";

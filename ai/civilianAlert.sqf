@@ -9,8 +9,6 @@ _seenUnits = _this;
 				_unit setVariable ["available", false, false];
 				_unit setVariable ["MGP_civilianAlerted", true, false];
 				
-				diag_log format ["Civilian alerted by %1", _x];
-				
 				_closestCentral = ([[a_civ_centre, b_civ_centre_1, b_civ_centre_2],[_unit],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 				_town = if (_closestCentral == a_civ_centre) then { "A"; } else { "B"; };
 				
@@ -22,6 +20,8 @@ _seenUnits = _this;
 				_trg setTriggerArea [50, 50, 0, false];
 				_trg setTriggerActivation ["ANY", "PRESENT", false];
 				
+				_wp = (group _unit) addWaypoint [getPos _closestCentral, 0];
+				_wp setWaypointSpeed "FULL";
 				for "_i" from 1 to 5 do {
 					_wp = (group _unit) addWaypoint [getPos _closestCentral, 50];
 					_wp setWaypointSpeed "FULL";

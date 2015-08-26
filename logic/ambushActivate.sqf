@@ -14,10 +14,10 @@ ambushActivated = true;
 
 sleep 10;
 
-(leader convoyGroup) sideRadio "RadioAmbushStart";
+[[[(leader convoyGroup), "RadioAmbushStart"],"logic\radioMessage.sqf"],"BIS_fnc_execVM",true,false] call BIS_fnc_MP;
 sleep 5;
 for "_i" from 0 to 2 do {
-	(leader convoyGroup) sideRadio (format ["RadioAmbush%1_%2", _town, _i]);
-	sleep 2;
+	[[[(leader convoyGroup), (format ["RadioAmbush%1_%2", _town, _i])],"logic\radioMessage.sqf"],"BIS_fnc_execVM",true,false] call BIS_fnc_MP;
+	sleep 3;
 };
-(leader convoyGroup) sideRadio "RadioAmbushStatic";
+[[[(leader convoyGroup), "RadioAmbushStatic"],"logic\radioMessage.sqf"],"BIS_fnc_execVM",true,false] call BIS_fnc_MP;

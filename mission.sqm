@@ -11407,13 +11407,13 @@ class Mission
 			position[]={3976.738,312.4967,8801.0186};
 			a=10;
 			b=10;
-			angle=-13.064532;
+			angle=-13.0645;
 			activationBy="WEST";
 			interruptable=1;
 			age="UNKNOWN";
 			name="ambushTriggerA";
 			expCond="ambushReadyA && this";
-			expActiv="if (isServer) then { _boom = ""A"" execVM ""ai\ambushActivate.sqf""; };";
+			expActiv="if (isServer) then { _boom = ""A"" execVM ""logic\ambushActivate.sqf""; };";
 			class Effects
 			{
 			};
@@ -11439,13 +11439,13 @@ class Mission
 			position[]={5489.2744,336.91568,8377.3252};
 			a=10;
 			b=10;
-			angle=43.118839;
+			angle=43.118801;
 			activationBy="WEST";
 			interruptable=1;
 			age="UNKNOWN";
 			name="ambushTriggerB";
 			expCond="ambushReadyB && this";
-			expActiv="if (isServer) then { _boom = ""B"" execVM ""ai\ambushActivate.sqf""; };";
+			expActiv="if (isServer) then { _boom = ""B"" execVM ""logic\ambushActivate.sqf""; };";
 			class Effects
 			{
 			};
