@@ -1,7 +1,7 @@
 Command's intent:
-<br />   1. Recon the <marker name = 'marker_ao'>area of operations</marker>, avoiding contact with locals. Attempt to verify the location of Jokeri.
+<br />   1. Recon <marker name = 'marker_pustoshka'>the</marker> <marker name = 'marker_pogorevka'>three</marker> <marker name = 'marker_rogovo'>towns</marker>, avoiding contact with locals. Attempt to verify the location of Jokeri.
 <br />   2. Coordinate a fast raid on the %1, %2attempting to capture Jokeri alive if possible.
 <br />   3. If unable to capture the target alive, confirm his death.
 <br />   4. Return to <marker name = 'marker_base'>base</marker> via a safe route.
 <br /> <br />
-All details of mission are up to the team leaders on the field, based on updated situation information.
+All specifics are up to the team leaders on the field, based on updated situation information.

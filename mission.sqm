@@ -70,12 +70,15 @@ class Mission
 		briefingName="Operation HIFK";
 		overviewText="Finnish Special Jaegers eliminate a prominent militia leader.";
 		resistanceWest=0;
-		timeOfChanges=3600;
+		timeOfChanges=5400;
 		startWeather=0.14999999;
-		startWind=0;
-		forecastWeather=0.75;
-		forecastWind=0;
+		startWind=0.20999999;
+		startGust=0.02;
+		forecastWeather=0.61000001;
+		forecastWind=0.41;
 		forecastWaves=0;
+		forecastGust=0.11;
+		windForced=1;
 		year=2013;
 		month=10;
 		day=8;
@@ -11348,19 +11351,38 @@ class Mission
 		{
 			position[]={4497.8623,293.39755,6416.5669};
 			name="marker_pogorevka";
+			markerType="ELLIPSE";
 			type="Empty";
+			colorName="ColorEAST";
+			fillName="SolidBorder";
+			a=100;
+			b=100;
+			drawBorder=1;
 		};
 		class Item67
 		{
 			position[]={4756.666,267.82773,6763.8467};
 			name="marker_rogovo";
+			markerType="ELLIPSE";
 			type="Empty";
+			colorName="ColorEAST";
+			fillName="SolidBorder";
+			a=150;
+			b=150;
+			drawBorder=1;
 		};
 		class Item68
 		{
-			position[]={3063.4941,301.49319,7922.2109};
+			position[]={3078.3318,302.14572,7902.605};
 			name="marker_pustoshka";
+			markerType="ELLIPSE";
 			type="Empty";
+			colorName="ColorEAST";
+			fillName="SolidBorder";
+			a=200;
+			b=250;
+			angle=-162.069;
+			drawBorder=1;
 		};
 		class Item69
 		{
@@ -11374,11 +11396,12 @@ class Mission
 			name="marker_ao";
 			markerType="ELLIPSE";
 			type="Empty";
-			colorName="ColorRed";
-			fillName="DiagGrid";
+			colorName="ColorEAST";
+			fillName="Border";
 			a=2000;
 			b=1000;
 			angle=-142.923;
+			drawBorder=1;
 		};
 		class Item71
 		{

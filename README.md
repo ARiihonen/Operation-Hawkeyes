@@ -1,2 +1,2 @@
-# Operation-Hawkeyes
-Arma 3 coop, 4-14 players
+# Operation-HIFK
+Arma 3 coop, 6-14 players

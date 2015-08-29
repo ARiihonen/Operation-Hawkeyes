@@ -14,7 +14,8 @@ removeGoggles player;
 
 switch _class do {
 
-	case "B_RECON_TL_F": { comment "Exported from Arsenal by Caranfin";
+	case "B_RECON_TL_F": { 
+		comment "Exported from Arsenal by Caranfin";
 		comment "Add containers";
 		player forceAddUniform "MNP_CombatUniform_Fin_A";
 		player addItemToUniform "ACE_EarPlugs";
