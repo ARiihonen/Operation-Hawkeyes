@@ -2,6 +2,7 @@
 waitUntil {!isNil "serverInit"};
 waitUntil {serverInit};
 
+//Runs on both server and clients:
 //TFAR parameters you might want to change. The names should be self-explanatory.
 #include "\task_force_radio\functions\common.sqf";
 
@@ -11,19 +12,17 @@ tf_same_sw_frequencies_for_side = true;
 tf_same_lr_frequencies_for_side = true;
 
 tf_west_radio_code = "_bluefor"; //every side with the same radio code can talk to each other on radio, if on the same channel
-tf_defaultWestBacpkack = "tf_bussole";
+tf_defaultWestBacpkack = "tf_rt1523g_green";
 tf_defaultWestPersonalRadio = "tf_anprc148jem"; //fancy short range radio
 tf_defaultWestRiflemanRadio = "tf_anprc148jem"; //shit short range radio
 
 _settingsSwWest = false call TFAR_fnc_generateSwSettings;
-_settingsSwWest set [2, ["31.10","31.15","31.20","31.25","31.90"]];
+_settingsSwWest set [2, ["31.05","31.10","31.15","31.20","31.25","31.90","42.0","42.0","42.0"]];
 tf_freq_west = _settingsSwWest;
 
 _settingsLrWest = false call TFAR_fnc_generateLrSettings;
-_settingsLrWest set [2, ["31","32","33","40","50","51"]];
+_settingsLrWest set [2, ["31","31.05","31.10","31.15","31.20","31.25","42.0","42.0","42.0"]];
 tf_freq_west_lr = _settingsLrWest;
-
-//Runs on both server and clients:
 
 //ASR parameters
 asr_ai3_sysdanger_radiorange = 1000; //this tells the thingy to not send AI to help out other fighting AI unless they're within 50 metres. Set to whatever you want or remove.

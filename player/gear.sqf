@@ -36,7 +36,7 @@ switch _class do {
 		for "_i" from 1 to 2 do {player addItemToVest "rhs_mag_an_m8hc";};
 		for "_i" from 1 to 2 do {player addItemToVest "rhs_mag_m18_red";};
 		for "_i" from 1 to 2 do {player addItemToVest "16Rnd_9x21_Mag";};
-		player addBackpack "tf_bussole";
+		player addBackpack "tf_rt1523g_green";
 		player addHeadgear "MNP_Boonie_FIN";
 		player addGoggles "TRYK_Shemagh_G";
 
@@ -306,4 +306,42 @@ switch _class do {
 		player linkItem "tf_anprc148jem";
 		player linkItem "NVGoggles_OPFOR";
 	};
+};
+
+//radio setup
+#include "\task_force_radio\functions\common.sqf";
+WaitUntil {sleep 0.1; count (player call TFAR_fnc_radiosList) > 0};
+
+_primaryChannel = false;
+_secondaryChannel = false;
+_groupID = groupID (group player);
+
+switch _groupID do {
+	case "Team Alpha": {
+		_primaryChannel = 1;
+	};
+	case "Sierra One": {
+		_primaryChannel = 2;
+	};
+	case "Team Bravo": {
+		_primaryChannel = 3;
+	};
+	case "Sierra Two": {
+		_primaryChannel = 4;
+	};
+	case "Haukka": {
+		_primaryChannel = 5;
+	};
+};
+
+if (player == leader group player || _groupID == "Haukka") then {
+	_secondaryChannel = 0;
+};
+
+if (typeName _primaryChannel != "BOOL") then {
+	[call TFAR_fnc_activeSwRadio, _primaryChannel] call TFAR_fnc_setSwChannel;
+};
+
+if (typeName _secondaryChannel != "BOOL") then {
+	[call TFAR_fnc_activeSwRadio, _secondaryChannel] call TFAR_fnc_setAdditionalSwChannel;
 };

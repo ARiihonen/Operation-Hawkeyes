@@ -1,7 +1,19 @@
-Operation-wide LR: CH 1, freq 31.00
+Everyone's personal radio is set up with their team's channel as the primary. <br />
+Team leaders and helicopter crew have CH1 (Ground Team Command) as their alternate channel. <br />
+Long range radios are set to CH1 (Air Support). Other channels are provided for backup.
 <br /> <br />
-Team Alpha SR: CH 1, freq 31.10 <br />
-Sierra One SR: CH 2, freq 31.15 <br />
-Team Bravo SR: CH 3, freq 31.20 <br />
-Sierra Two SR: CH 4, freq 31.25 <br />
-Helicopter Team (Haukka) SR: CH 5, freq 31.90
+Long range radios:<br />
+CH1: freq 31.00: Air Support <br />
+CH2: freq 31.05: Ground Team Command <br />
+CH3: freq 31.10: Team Alpha <br />
+CH4: fre1 31.15: Sierra One <br />
+CH5: freq 31.20: Team Bravo <br />
+CH6: freq 31.25: Sierra Two <br />
+<br /> <br />
+Personal radios:<br />
+CH1: freq 31.05: Ground Team Command </br>
+CH2: freq 31.10: Team Alpha <br />
+CH3: fre1 31.15: Sierra One <br />
+CH4: freq 31.20: Team Bravo <br />
+CH5: freq 31.25: Sierra Two <br />
+CH6: freq 31.90: Helicopter Crew (Haukka)

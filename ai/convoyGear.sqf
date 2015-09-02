@@ -1,4 +1,4 @@
-if (typeOf _this == "rhsusf_M1078A1P2_B_M2_wd_fmtv_usarmy" || typeOf _this == "rhsusf_rg33_wd") then {
+if (typeOf _this == "rhsusf_M1078A1P2_B_wd_fmtv_usarmy" || typeOf _this == "rhsusf_rg33_wd") then {
 	_this addItemCargoGlobal ["ACE_packingBandage", 100];
 	_this addItemCargoGlobal ["ACE_morphine", 50];
 	_this addItemCargoGlobal ["ACE_epinephrine", 50];

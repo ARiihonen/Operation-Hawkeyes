@@ -18,14 +18,15 @@ if (isServer) then {
 	killConfirmed = false;
 	ambushActivated = false;
 	
-	targetLocation = floor random 2;
+	//targetLocation = floor random 2;
+	targetLocation = 0;
 	target = floor random 4;
 	
 	cacheA = floor random 4;
 	cacheB = floor random 4;
-	
+
 	ambushTown = "C";
-	if (random 1 > 0.75) then {
+	if (random 1 < 0.25) then {
 		_village = ["A", "B"] call BIS_fnc_selectRandom;
 		ambushTown = _village;
 	};

@@ -7,24 +7,26 @@ _endTextPS = _this select 5;
 
 sleep 2; 
 1 cutText [_endTextStatus, "BLACK", 2];
-sleep 5;  
-2 cutText [_endTextTasks, "BLACK", 2];
-sleep 5;  
-3 cutText [_endTextCasualties, "BLACK", 2];
 sleep 5;
+2 cutText [_endTextTasks, "BLACK", 2];
+sleep 8;
+3 cutText [_endTextCasualties, "BLACK", 2];
+
 if (_endTextCivilians != "") then {
+	sleep 8;
 	4 cutText [_endTextCivilians, "BLACK", 2];
 };
-if (_endTextPS == "") then {
+
+if (_endTextPS != "") then {
+	sleep 8;  
+	5 cutText [_endTextPS, "BLACK", 2];
+	5 cutFadeOut 300;
+} else {
 	if (_endTextCivilians != "") then {
 		4 cutFadeOut 300;
 	} else {
 		3 cutFadeOut 300;
 	};
-} else {
-	sleep 5;  
-	5 cutText [_endTextPS, "BLACK", 2];
-	5 cutFadeOut 300;
 };
 
 sleep 15;

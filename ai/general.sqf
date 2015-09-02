@@ -86,10 +86,10 @@ _targetLoop = [] spawn {
 			_grp setSpeedMode "LIMITED";
 			
 			for "_i" from 1 to (1 + floor random 5) do {
-				_wp = _grp addWaypoint [_homeMarker, 100];
+				_wp = _grp addWaypoint [markerPos _homeMarker, 100];
 			};
 			
-			_wp = _grp addWaypoint [_homeMarker, 0];
+			_wp = _grp addWaypoint [markerPos _homeMarker, 0];
 		};
 	};
 };
